@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+		城市<input type="text" name="city" id="city" >
+	
+</body>
+</html>
+<script src="jquery-1.12.4.min.js"></script>
+<script>
+	
+	$(function(){
+
+		$("#city").on("blur",function(){
+			var city = $("#city").val();
+
+			if(city=='' || $.trim(city).length==0 ){
+			alert('不能为空');
+			return false;
+			}
+
+			if(city.length>30){
+				alert("长度不能大于30");
+				return false;
+			}
+
+			var reg = /^[a-zA-Z0-9\u4e00-\u9fa5]+$/i;
+
+			if(!reg.test(city)){
+				alert("必须是数字字母汉字");
+				return false;
+			}
+
+			$.ajax({
+				url:"preach.php",
+				data:{'city':city},
+				type:'get',
+				dataType:"json",
+				success:function(data){
+					console.log(data);
+				}
+			})
+
+		})
+
+	})
+
+	
+</script>
