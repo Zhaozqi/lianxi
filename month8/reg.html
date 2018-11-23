@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form action="reg_do.php" method="post" onsubmit="return void()">
+		<table>
+			<tr>
+				<td>用户名</td>
+				<td><input type="text" name="name" id="name"></td>
+			</tr>
+			<tr>
+				<td>密码</td>
+				<td><input type="password" name="password" id="password"></td>
+			</tr>
+			<tr>
+				<td>手机号</td>
+				<td><input type="text" name="phone" id="phone"></td>
+			</tr>
+			<tr>
+				<td>验证码</td>
+				<td><input type="text" name="code"></td>
+				<td><input type="button" value="发送验证码" id="sendcode"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" value="注册"></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
+<script src="jquery-1.12.4.min.js"></script>
+<script>	
+	function  void(){
+		//检查用户名是否为空
+		var name = $("#name").val();
+
+		$("#name").blur(function(){
+			if(name == ''){
+				alert("用户名不能为空");
+				return false;
+			}
+		})
+		
+		//检查密码是否为空
+		$("#password").blur(function{
+			var password = $("#password").val();
+
+		
+			if(password.length>16 || password.length<8){
+				alert("密码要在8-16之间");
+			}
+		})
+
+		
+		
+	}
+		
+		
+
+	//按钮点击事件 ajax发送后台
+	
+		$("#sendcode").on('click',function(){
+			var phone = $("#phone").val();
+			// alert(phone);
+			$.ajax({
+				url:"sms/SendTemplateSMS.php",
+				data:{'phone':phone},
+				type:"get",
+				dataType:"json",
+				success:function(data){
+
+				}
+			})
+		})
+
+</script>
